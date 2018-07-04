@@ -1,9 +1,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
 <head>
     <title>Meals</title>
+    <style>
+        .normal {
+            /*color: green;*/
+            /*color: white;*/
+            background-color: lightgreen;
+            text-align: center
+        }
+
+        .exceeded {
+            /*color:red;*/
+            /*color: white;*/
+            background-color: lightcoral;
+            text-align: center
+        }
+    </style>
 </head>
 <body>
 <h3><a href="index.html">Home</a></h3>
@@ -17,16 +32,10 @@
     </tr>
 
     <c:forEach var="meal" items="${meals}">
-        <fmt:formatDate value="${meal.getDate()}" var="formatted" pattern="dd.MM.yyyy HH:mm:ss"/>
-        <tr>
-            <td align = center>${formatted}</td>
-            <td align = center>${meal.getDescription()}</td>
-            <c:if test="${meal.isExceed()}">
-                <td align = center bgcolor="red"><font color="white">${meal.getCalories()}</font></td>
-            </c:if>
-            <c:if test="${!meal.isExceed()}">
-                <td align = center bgcolor="green"><font color="white">${meal.getCalories()}</fon></td>
-            </c:if>
+        <tr class="${meal.isExceed() ? 'exceeded' : 'normal'}">
+            <td>${fn:replace(meal.getDateTime(), 'T', ' ')}</td>
+            <td>${meal.getDescription()}</td>
+            <td>${meal.getCalories()}</td>
         </tr>
     </c:forEach>
 </table>

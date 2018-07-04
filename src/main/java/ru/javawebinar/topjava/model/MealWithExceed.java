@@ -20,10 +20,6 @@ public class MealWithExceed {
         this.exceed = exceed;
     }
 
-    public Date getDate() {
-        return Date.from(dateTime.atZone(ZoneId.of("Europe/Moscow")).toInstant());
-    }
-
 
     public LocalDateTime getDateTime() {
         return dateTime;
